@@ -7,8 +7,9 @@
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    std::cout << "Usage: " << argv[0]
-              << " [-w | --words-per-minute WORDS_PER_MINUTE] FILE\n";
+    std::cerr << "Usage: " << argv[0]
+              << " [-w | --words-per-minute WORDS_PER_MINUTE] FILE"
+              << std::endl;
     return 1;
   }
 
@@ -19,29 +20,31 @@ int main(int argc, char *argv[]) {
     if (std::string(argv[i]) == "-w" ||
         std::string(argv[i]) == "--words-per-minute") {
       if (argc < 4) {
-        std::cout << "WORDS_PER_MINUTE or FILE is not provided\n";
+        std::cerr << "WORDS_PER_MINUTE or FILE is not provided" << std::endl;
         return 2;
       }
       wpm = 0;
       for (int j = 0; argv[i + 1][j]; j++) {
         if (argv[i + 1][j] > '9' || argv[i + 1][j] < '0') {
-          std::cout << "Error: " << argv[i + 1] << " is not an integer value\n";
+          std::cerr << "Error: " << argv[i + 1] << " is not an integer value"
+                    << std::endl;
           return 3;
         }
         wpm = wpm * 10 + argv[i + 1][j] - '0';
       }
       i++;
     } else if ((file = fopen(argv[i], "r")) == NULL) {
-      std::cout << "Error: '" << argv[1] << "' no such file\n";
-      std::cout << "Usage: " << argv[0]
-                << " [-w | --words-per-minute WORDS_PER_MINUTE] FILE\n";
+      std::cerr << "Error: '" << argv[1] << "' no such file" << std::endl;
+      std::cerr << "Usage: " << argv[0]
+                << " [-w | --words-per-minute WORDS_PER_MINUTE] FILE"
+                << std::endl;
       return 4;
     }
   }
 
   system("clear");
   for (int i = 0; i < OFFSET_Y; i++)
-    std::cout << "\n";
+    std::cout << std::endl;
   for (int i = 0; i < OFFSET_X; i++)
     std::cout << " ";
 
@@ -63,7 +66,7 @@ int main(int argc, char *argv[]) {
       system("clear");
 
       for (int i = 0; i < OFFSET_Y; i++)
-        std::cout << "\n";
+        std::cout << std::endl;
       for (int i = 0; i < OFFSET_X; i++)
         std::cout << " ";
 
